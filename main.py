@@ -129,8 +129,7 @@ class ResumeGenerator:
         
         try:
             # Try to parse the structured output
-            resume_content = self.output_parser.parse(result)
-            print(resume_content)
+            resume_content = self.output_parser.parse(result.content)
             return resume_content
         except Exception as e:
             logger.error(f"Error parsing output: {e}")
@@ -326,7 +325,7 @@ def main():
     
     # Print result
     if isinstance(resume, Resume):
-        print(f"Generated resume for {resume.header.get('name', 'User')}")
+        print(f"Generated resume for {resume.header.get('Name', 'User')}")
         print(f"Summary: {resume.summary[:100]}...")
         print(f"Number of work experience sections: {len(resume.work_experience)}")
         print(f"Skills highlighted: {', '.join(resume.skills[:5])}...")
