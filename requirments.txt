@@ -1,0 +1,45 @@
+# Core dependencies
+langchain>=0.1.0
+langchain-openai>=0.0.1
+langchain-community>=0.0.1
+openai>=1.0.0
+pydantic>=2.0.0
+python-dotenv>=1.0.0
+langchain
+langchain_community
+streamlit
+fastapi[standard]
+langchain_ollama
+python-dotenv
+langserve
+bs4
+faiss-cpu
+pypdf 
+chromadb
+ipykernel
+langchain_openai
+langgraph>0.2.27
+langchain-chroma
+langchain-text-splitters
+langgraph
+
+# API (if needed)
+fastapi>=0.100.0
+uvicorn>=0.23.0
+
+# Database (if needed)
+sqlalchemy>=2.0.0
+
+# Vector stores (select as needed)
+chromadb>=0.4.0
+# pgvector>=0.2.0
+# qdrant-client>=1.5.0
+
+# Document loaders (select as needed)
+unstructured>=0.10.0
+# pymupdf>=1.22.0
+# pypdf>=3.15.0
+
+# Utilities
+python-dotenv>=1.0.0
+tqdm>=4.66.0
