@@ -73,7 +73,7 @@ class ResumeGenerator:
             Resume object with tailored content
         """
         prompt = self._create_resume_prompt()
-        chain = prompt | self.llm 
+        chain = prompt | self.llm | self.output_parser
         
         # Format user profile for the prompt
         user_profile_text = self._format_user_profile(user_profile)
@@ -85,16 +85,7 @@ class ResumeGenerator:
             "job_description": job_description,
             "format_instructions": self.output_parser.get_format_instructions()
         })
-        
-        try:
-            # Try to parse the structured output
-            resume_content = self.output_parser.parse(result.content)
-            return resume_content
-        except Exception as e:
-            logger.error(f"Error parsing output: {e}")
-            # Fallback: return raw text
-            logger.info("Falling back to raw output")
-            return result.content
+        return result
     
     def _format_user_profile(self, user_profile: Dict[str, Any]) -> str:
         """Format user profile data for inclusion in the prompt."""
