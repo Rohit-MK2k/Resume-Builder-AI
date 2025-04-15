@@ -12,7 +12,6 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from database.database import engine, Base
 from database.models import User, UserProfile, Resume, ResumeTemplate
-from core.config import settings
 
 # Load environment variables
 load_dotenv()
@@ -29,7 +28,7 @@ def create_tables():
 
 def check_postgres_connection():
     """Check if we can connect to PostgreSQL."""
-    print(f"Trying to connect to PostgreSQL at {settings.POSTGRES_SERVER}...")
+    print(f"Trying to connect to PostgreSQL")
 
     try:
         # Try to execute a simple query
@@ -39,9 +38,6 @@ def check_postgres_connection():
     except SQLAlchemyError as e:
         print(f"Error connecting to PostgreSQL: {e}")
         print("\nPlease check your database settings:")
-        print(f"  Server: {settings.POSTGRES_SERVER}")
-        print(f"  Database: {settings.POSTGRES_DB}")
-        print(f"  User: {settings.POSTGRES_USER}")
         print("  (Password hidden)")
         sys.exit(1)
 
@@ -81,13 +77,13 @@ def create_default_templates():
         print(f"Created {len(templates)} default templates!")
 
 
-def main():
-    """Initialize the database."""
-    print("Database initialization starting...")
-    check_postgres_connection()
-    create_tables()
-    create_default_templates()
-    print("\nDatabase initialization completed successfully!")
+# def main():
+#     """Initialize the database."""
+#     print("Database initialization starting...")
+#     check_postgres_connection()
+#     create_tables()
+#     create_default_templates()
+#     print("\nDatabase initialization completed successfully!")
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
