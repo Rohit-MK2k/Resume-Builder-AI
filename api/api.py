@@ -36,5 +36,6 @@ def root():
     return {"Hello": "World!"}
 
 @app.post('/user/signup/')
-def registerUser(newUser: Any, db: db_dependency):
+def registerUser(newUser: dict, db: db_dependency):
     print(newUser)
+    return {"message": "Received user data", "data": newUser}
