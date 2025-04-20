@@ -1,15 +1,19 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, Boolean
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, Boolean, event
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
-from database import Base
+from .database import Base
+from passlib.context import CryptContext
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 class User(Base):
     """User model for authentication and basic user info."""
     __tablename__= "users"
 
     id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
     email = Column(String, unique=True, index=True, nullable=False)
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean, default=True)
@@ -25,6 +29,24 @@ class User(Base):
     # Relationships
     profile = relationship("UserProfile", back_populates="user", uselist=False, cascade="all, delete-orphan")
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        # Store the original password temporarily
+        self._password = kwargs.get('password')
+
+# Event listener for before insert
+@event.listens_for(User, 'before_insert')
+def hash_password_before_insert(mapper, connection, target):
+    if hasattr(target, '_password') and target._password:
+        target.hashed_password = pwd_context.hash(target._password)
+        delattr(target, '_password')
+
+# Event listener for before update
+@event.listens_for(User, 'before_update')
+def hash_password_before_update(mapper, connection, target):
+    if hasattr(target, '_password') and target._password:
+        target.hashed_password = pwd_context.hash(target._password)
+        delattr(target, '_password')
 
 class UserProfile(Base):
     __tablename__ = "user_profile"

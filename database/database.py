@@ -9,10 +9,7 @@ from sqlalchemy.sql import text
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
 
-# from core.config import settings
-
 load_dotenv()
-
 
 engine = create_engine(
     str(os.environ.get("POSTGRES_URI")),
@@ -47,10 +44,6 @@ def check_postgres_connection():
     except SQLAlchemyError as e:
         print(f"Error connecting to PostgreSQL: {e}")
         print("\nPlease check your database settings:")
-        # print(f"  Server: {settings.POSTGRES_SERVER}")
-        # print(f"  Database: {settings.POSTGRES_DB}")
-        # print(f"  User: {settings.POSTGRES_USER}")
-        # print("  (Password hidden)")
         sys.exit(1)
 
 def get_db():

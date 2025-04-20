@@ -43,6 +43,7 @@ unstructured>=0.10.0
 # Utilities
 python-dotenv>=1.0.0
 tqdm>=4.66.0
+passlib
 
 # PostgreSQL
 SQLAlchemy

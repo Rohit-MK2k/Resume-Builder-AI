@@ -15,6 +15,7 @@ from Schema.resume_Schema import Resume
 from resumeGenerator import ResumeGenerator
 
 from database import get_db
+from api.auth.route import router as auth_router
 
 # Load environment variables
 load_dotenv()
@@ -31,11 +32,13 @@ app = FastAPI()
 
 db_dependency = Annotated[Session, Depends(get_db)]
 
-@app.get('/')
-def root():
-    return {"Hello": "World!"}
+# @app.get('/')
+# def root():
+#     return {"Hello": "World!"}
 
-@app.post('/user/signup/')
-def registerUser(newUser: dict, db: db_dependency):
-    print(newUser)
-    return {"message": "Received user data", "data": newUser}
+app.include_router(auth_router)
+
+# @app.post('/user/signup/')
+# def registerUser(newUser: dict, db: db_dependency):
+#     print(newUser)
+#     return {"message": "Received user data", "data": newUser}
