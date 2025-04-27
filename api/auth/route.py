@@ -26,10 +26,8 @@ class userExist(BaseModel):
 
 @router.post("/signup")
 def registerUser(newUser: userCreate, db: db_dependency):
-    name, email, password = newUser
-    
     # Check if user with this email already exists in the database
-    user_exists = db.query(User).filter(User.email == email).first()
+    user_exists = db.query(User).filter(User.email == newUser.email).first()
     
     if user_exists:
         raise HTTPException(
@@ -39,9 +37,9 @@ def registerUser(newUser: userCreate, db: db_dependency):
     
     # If user doesn't exist, we can proceed with registration
     new_user = User(
-        name = name,
-        email = email,
-        password = password
+        name = newUser.username,
+        email = newUser.email,
+        password = newUser.password
     )
 
     db.add(new_user)

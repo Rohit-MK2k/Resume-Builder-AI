@@ -32,9 +32,9 @@ app = FastAPI()
 
 db_dependency = Annotated[Session, Depends(get_db)]
 
-# @app.get('/')
-# def root():
-#     return {"Hello": "World!"}
+@app.get('/')
+def root():
+    return {"Hello": "World!"}
 
 app.include_router(auth_router)
 
