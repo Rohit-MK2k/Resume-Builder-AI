@@ -47,7 +47,7 @@ passlib
 
 # PostgreSQL
 SQLAlchemy
-psycopg2-binary
+psycopg
 alembic
 pydantic-settings   
 

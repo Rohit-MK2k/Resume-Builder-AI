@@ -47,6 +47,7 @@ def registerUser(newUser: userCreate, db: db_dependency):
     db.refresh(new_user)
 
     return {"message": "User Created Sucessfully",  "status": "success"}
+
 @router.post('/login')
-def authUser(user: userExist):
+def authUser(user: userExist, db: db_dependency):
     print(user)
