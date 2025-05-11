@@ -36,9 +36,5 @@ db_dependency = Annotated[Session, Depends(get_db)]
 def root():
     return {"Hello": "World!"}
 
-app.include_router(auth_router)
+app.include_router(auth_router, prefix="/api/auth")
 
-# @app.post('/user/signup/')
-# def registerUser(newUser: dict, db: db_dependency):
-#     print(newUser)
-#     return {"message": "Received user data", "data": newUser}

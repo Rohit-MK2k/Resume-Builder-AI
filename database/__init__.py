@@ -4,5 +4,4 @@ from .models.profile import UserProfile
 from .models.resume import Resume
 from .models.templete import ResumeTemplate
 
-check_postgres_connection()
-# create_tables()
+

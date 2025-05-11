@@ -22,15 +22,6 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
-def create_tables():
-    """Create all database tables based on SQLAlchemy models."""
-    print("Creating database tables...")
-    try:
-        Base.metadata.create_all(bind=engine)
-        print("Database tables created successfully!")
-    except SQLAlchemyError as e:
-        print(f"Error creating database tables: {e}")
-        sys.exit(1)
 
 def check_postgres_connection():
     """Check if we can connect to PostgreSQL."""

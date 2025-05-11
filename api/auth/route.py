@@ -9,8 +9,8 @@ from database import get_db
 from database import User
 
 router = APIRouter(
-    prefix="/user",
-    tags=["user"]
+    prefix="",
+    tags=["user authentication"]
 )
 
 db_dependency = Annotated[Session, Depends(get_db)]
@@ -24,6 +24,9 @@ class userExist(BaseModel):
     email: str
     password: str
 
+# @desc   Register new user
+# @route  POST / api / auth
+# @access Public
 @router.post("/signup")
 def registerUser(newUser: userCreate, db: db_dependency):
     # Check if user with this email already exists in the database
